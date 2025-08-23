@@ -1,0 +1,75 @@
+<form class="w-100" [formGroup]="registerForm" (ngSubmit)="register($event)">
+  <div class="mb-3 pb-2">
+    <label for="name" class="form-label fs-7">Your name</label>
+    <input
+      class="form-control rounded-3 p-3 w-100"
+      id="name"
+      name="name"
+      placeholder="Enter your name"
+      autocomplete="name"
+      formControlName="name"
+      required
+    />
+
+    @if (registerForm.get('name')?.touched && registerForm.get('name')?.invalid) {
+    <div class="text-danger mt-1">
+      @if (registerForm.get('name')?.errors?.['required']) {
+      <small>Name is required.</small>
+      }
+    </div>
+    }
+  </div>
+  
+  <div class="mb-3 pb-2">
+    <label for="email" class="form-label fs-7">Your email</label>
+    <input
+      type="email"
+      class="form-control rounded-3 p-3 w-100"
+      id="email"
+      name="email"
+      placeholder="Enter your email"
+      autocomplete="email"
+      formControlName="email"
+      required
+    />
+
+    @if (registerForm.get('email')?.touched && registerForm.get('email')?.invalid) {
+    <div class="text-danger mt-1">
+      @if (registerForm.get('email')?.errors?.['required']) {
+      <small>Email is required.</small>
+      } @if (registerForm.get('email')?.errors?.['email']) {
+      <small>Enter a valid email address.</small>
+      }
+    </div>
+    }
+  </div>
+
+  <div class="mb-3 pb-4">
+    <label for="password" class="form-label fs-7">Password</label>
+    <input
+      type="password"
+      class="form-control rounded-3 p-3 w-100"
+      id="password"
+      name="password"
+      placeholder="Enter your password"
+      autocomplete="current-password"
+      formControlName="password"
+      required
+    />
+
+    @if (registerForm.get('password')?.touched &&
+    registerForm.get('password')?.invalid) {
+    <div class="text-danger mt-1">
+      @if (registerForm.get('password')?.errors?.['required']) {
+      <small>Password is required.</small>
+      } @if (registerForm.get('password')?.errors?.['minlength']) {
+      <small>Password must be at least 6 characters.</small>
+      }
+    </div>
+    }
+  </div>
+
+  <button type="submit" class="btn btn-login w-100 rounded-3 p-3 fw-medium">
+    Sign up
+  </button>
+</form>
