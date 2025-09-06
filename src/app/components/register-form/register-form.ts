@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroup, NonNullableFormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Auth } from '../../services/auth';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register-form',
@@ -11,7 +12,7 @@ import { Auth } from '../../services/auth';
 export class RegisterForm {
   registerForm: FormGroup;
 
-  constructor(private auth: Auth, private fb: NonNullableFormBuilder) {
+  constructor(private auth: Auth, private fb: NonNullableFormBuilder, private router: Router) {
     this.registerForm = this.fb.group({
       name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
@@ -25,6 +26,8 @@ export class RegisterForm {
       this.registerForm.markAllAsTouched(); // ⚡ highlight errors
       return;
     }
-    this.auth.register(this.registerForm.value);
+    if (this.auth.register(this.registerForm.value)) {
+      this.router.navigate(['/home']);
+    }
   }
 }
