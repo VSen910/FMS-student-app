@@ -7,13 +7,13 @@
       name="name"
       placeholder="Enter your name"
       autocomplete="name"
-      formControlName="name"
+      formControlName="fullName"
       required
     />
 
-    @if (registerForm.get('name')?.touched && registerForm.get('name')?.invalid) {
+    @if (registerForm.get('fullName')?.touched && registerForm.get('fullName')?.invalid) {
     <div class="text-danger mt-1">
-      @if (registerForm.get('name')?.errors?.['required']) {
+      @if (registerForm.get('fullName')?.errors?.['required']) {
       <small>Name is required.</small>
       }
     </div>

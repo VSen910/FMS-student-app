@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { Auth } from '../../services/auth/auth';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-register-form',
@@ -20,10 +21,11 @@ export class RegisterForm {
   constructor(
     private auth: Auth,
     private fb: NonNullableFormBuilder,
-    private router: Router
+    private router: Router,
+    private cookieService: CookieService
   ) {
     this.registerForm = this.fb.group({
-      name: ['', [Validators.required]],
+      fullName: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
     });
@@ -35,8 +37,16 @@ export class RegisterForm {
       this.registerForm.markAllAsTouched(); // ⚡ highlight errors
       return;
     }
-    if (this.auth.register(this.registerForm.value)) {
-      this.router.navigate(['/home']);
-    }
+    this.auth.register(this.registerForm.value).subscribe({
+      next: (res) => {
+        this.cookieService.set('token', res.token);
+        this.cookieService.set('fullName', res.fullName);
+        console.log(decodeURIComponent(document.cookie));
+        this.router.navigate(['/home']);
+      },
+      error: (err) => {
+        console.error('Registration failed', err);
+      }
+    });
   }
 }

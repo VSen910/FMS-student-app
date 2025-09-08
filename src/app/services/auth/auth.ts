@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { LoginModel } from './login.model';
+import { AuthUser } from './authUser.model';
 import { Observable } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 
@@ -10,14 +10,14 @@ import { CookieService } from 'ngx-cookie-service';
 export class Auth {
   constructor(private http: HttpClient, private cookieService: CookieService) {}
 
-  login(credentials: { email: string; password: string }): Observable<LoginModel> {
+  login(credentials: { email: string; password: string }): Observable<AuthUser> {
     console.log('Login attempted with', credentials);
-    return this.http.post<LoginModel>('http://127.0.0.1:8080/api/auth/login/student', credentials)
+    return this.http.post<AuthUser>('http://127.0.0.1:8080/api/auth/login/student', credentials)
   }
 
-  register(details: { name: string; email: string; password: string }): boolean {
+  register(details: { name: string; email: string; password: string }): Observable<AuthUser> {
     console.log('Registering user with', details);
-    return true;
+    return this.http.post<AuthUser>('http://127.0.0.1:8080/api/auth/register', details);
   }
 
   validateToken(): Observable<boolean> {
