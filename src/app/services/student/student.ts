@@ -1,0 +1,29 @@
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environments';
+import { CookieService } from 'ngx-cookie-service';
+import { Observable } from 'rxjs';
+import { Feedback } from '../../models/feedback.model';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class Student {
+  token: string;
+
+  constructor(private http: HttpClient, private cookieService: CookieService) {
+    this.token = this.cookieService.get('token');
+  }
+
+  getAllPendingForms(): Observable<Feedback[]> {
+    return this.http.get<Feedback[]>(`${environment.apiUrl}/api/student/pending`, {
+      headers: { Authorization: `Bearer ${this.token}` },
+    });
+  }
+
+  getAllCompletedForms(): Observable<Feedback[]> {
+    return this.http.get<Feedback[]>(`${environment.apiUrl}/api/student/completed`, {
+      headers: { Authorization: `Bearer ${this.token}` },
+    });
+  }
+}

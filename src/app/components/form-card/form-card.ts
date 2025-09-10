@@ -10,7 +10,6 @@ export class FormCard {
   @Input() title!: string;
   @Input() description!: string;
   @Input() creator!: string;
-  @Input() route!: string;
 
   goToDetails() {
     // Logic to navigate to form details page
