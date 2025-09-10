@@ -4,6 +4,8 @@ import { environment } from '../../environments/environments';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable } from 'rxjs';
 import { Feedback } from '../../models/feedback.model';
+import { PendingFeedback } from '../../models/pendingFeedback.model';
+import { SubmittedFeedback } from '../../models/submittedFeedback.model';
 
 @Injectable({
   providedIn: 'root',
@@ -16,14 +18,38 @@ export class Student {
   }
 
   getAllPendingForms(): Observable<Feedback[]> {
-    return this.http.get<Feedback[]>(`${environment.apiUrl}/api/student/pending`, {
-      headers: { Authorization: `Bearer ${this.token}` },
-    });
+    return this.http.get<Feedback[]>(
+      `${environment.apiUrl}/api/student/pending`,
+      {
+        headers: { Authorization: `Bearer ${this.token}` },
+      }
+    );
   }
 
   getAllCompletedForms(): Observable<Feedback[]> {
-    return this.http.get<Feedback[]>(`${environment.apiUrl}/api/student/completed`, {
-      headers: { Authorization: `Bearer ${this.token}` },
-    });
+    return this.http.get<Feedback[]>(
+      `${environment.apiUrl}/api/student/completed`,
+      {
+        headers: { Authorization: `Bearer ${this.token}` },
+      }
+    );
+  }
+
+  getPendingFormById(formId: number): Observable<PendingFeedback> {
+    return this.http.get<PendingFeedback>(
+      `${environment.apiUrl}/api/student/pending/${formId}`,
+      {
+        headers: { Authorization: `Bearer ${this.token}` },
+      }
+    );
+  }
+
+  getCompletedFormById(formId: number): Observable<SubmittedFeedback> {
+    return this.http.get<SubmittedFeedback>(
+      `${environment.apiUrl}/api/student/completed/${formId}`,
+      {
+        headers: { Authorization: `Bearer ${this.token}` },
+      }
+    );
   }
 }

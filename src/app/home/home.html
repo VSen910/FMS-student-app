@@ -11,9 +11,8 @@
   <div class="pending-cards d-flex flex-wrap gap-3 mt-4">
     @for (feedback of pendingFeedbacks; track $index) {
     <app-form-card
-      [title]="feedback.title"
-      [description]="feedback.description || 'No description available.'"
-      [creator]="feedback.createdBy"
+      [feedback]="feedback"
+      [status]="'pending'"
     ></app-form-card>
     }
 
@@ -27,9 +26,8 @@
 
     @for (feedback of completedFeedbacks; track $index) {
     <app-form-card
-      [title]="feedback.title"
-      [description]="feedback.description || 'No description available.'"
-      [creator]="feedback.createdBy"
+      [feedback]="feedback"
+      [status]="'completed'"
     ></app-form-card>
     }
 

@@ -5,5 +5,7 @@ export const routes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: 'login'},
   {path: 'login', loadComponent: () => import('./login/login').then(m => m.Login)},
   {path: 'register', loadComponent: () => import('./register/register').then(m => m.Register)},
-  {path: 'home', loadComponent: () => import('./home/home').then(m => m.Home)}
+  {path: 'home', loadComponent: () => import('./home/home').then(m => m.Home)},
+  {path: 'form/pending/:formId', loadComponent: () => import('./feedback-page/feedback-page').then(m => m.FeedbackPage)},
+  {path: 'form/completed/:formId', loadComponent: () => import('./feedback-page/feedback-page').then(m => m.FeedbackPage)},
 ];
