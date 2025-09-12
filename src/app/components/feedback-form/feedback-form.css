@@ -1,0 +1,38 @@
+.feedback-container {
+  max-width: 900px;
+  margin: 20px auto;
+  border-radius: 12px;
+  background: #ffffff;
+}
+
+.header-card {
+  background: #942cc0;
+  color: white;
+  border-radius: 10px;
+}
+
+.star {
+  /* font-size: 30px; */
+  cursor: pointer;
+  color: #ccc;
+  transition: color 0.2s;
+}
+
+.star.filled {
+  color: #ff9800;
+}
+
+textarea {
+  border: 1px solid #ccc;
+}
+
+.submit-btn {
+  background: #942cc0;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.submit-btn:hover {
+  background: #7a22a3;
+}

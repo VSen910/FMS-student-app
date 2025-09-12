@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { Feedback } from '../../models/feedback.model';
 import { PendingFeedback } from '../../models/pendingFeedback.model';
 import { SubmittedFeedback } from '../../models/submittedFeedback.model';
+import { FormResponse } from '../../models/response.model';
 
 @Injectable({
   providedIn: 'root',
@@ -47,6 +48,16 @@ export class Student {
   getCompletedFormById(formId: number): Observable<SubmittedFeedback> {
     return this.http.get<SubmittedFeedback>(
       `${environment.apiUrl}/api/student/completed/${formId}`,
+      {
+        headers: { Authorization: `Bearer ${this.token}` },
+      }
+    );
+  }
+
+  submitForm(response: FormResponse): Observable<{ status: string; formId: string }> {
+    return this.http.post<{ status: string; formId: string }>(
+      `${environment.apiUrl}/api/student/submit`,
+      response,
       {
         headers: { Authorization: `Bearer ${this.token}` },
       }

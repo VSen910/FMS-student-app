@@ -1,9 +1,7 @@
-export interface SubmittedFeedback {
+import { Feedback } from "./feedback.model";
+
+export interface SubmittedFeedback extends Feedback {
   assignmentId: number;
-  formId: number;
-  title: string;
-  description: string;
-  createdBy: string;
   assignedAt: string;   // or Date
   submittedAt: string | null; 
   answers: Answer[];

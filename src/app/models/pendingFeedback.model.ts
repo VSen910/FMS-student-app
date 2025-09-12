@@ -1,9 +1,7 @@
-export interface PendingFeedback {
+import { Feedback } from "./feedback.model";
+
+export interface PendingFeedback extends Feedback {
   assignmentId: number;
-  formId: number;
-  title: string;
-  description: string;
-  createdBy: string;
   assignedAt: string; // or Date if you want to parse it
   questions: Question[];
 }

@@ -1,5 +1,5 @@
 export interface Feedback {
-  formId: string;
+  formId: number;
   title: string;
   description: string;
   createdBy: string;

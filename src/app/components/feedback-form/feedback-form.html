@@ -1,0 +1,79 @@
+@if (!feedback) {
+  <div class="spinner-grow" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+  <div class="spinner-grow" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+  <div class="spinner-grow" role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+} @else {
+<div class="feedback-container p-4 w-100">
+  <div class="header-card mb-5 p-4">
+    <h2 class="maven-bold fs-2">{{ feedback.title }}</h2>
+    <p class="mt-2">{{ feedback.description }}</p>
+    <small class="mt-5">Created by: {{ feedback.createdBy }}</small>
+  </div>
+
+  <form [formGroup]="feedbackForm" (ngSubmit)="submitForm()">
+    @if ('questions' in feedback) { @for (q of feedback.questions; track q; let
+    i = $index) {
+    <div class="question mb-4">
+      <p>
+        <span>{{ i + 1 }}. </span>{{ q.prompt }}
+      </p>
+
+      @if (q.type === 'RATING') { @for (star of [1,2,3,4,5]; track star) {
+      <span
+        (click)="setRating(i, star)"
+        class="star fs-1 m-2"
+        [class.filled]="responsesArray.at(i).value >= star"
+      >
+        ★
+      </span>
+      } 
+      
+      @if (responsesArray.at(i).touched && responsesArray.at(i).invalid) {
+        <div class="text-danger mt-1">
+          <small>Invalid response</small>
+        </div>
+      }
+
+    } @else {
+      <textarea
+        [formControl]="responsesArray.at(i)"
+        rows="3"
+        class="w-100 p-3 rounded-2"
+      ></textarea>
+
+      @if (responsesArray.at(i).touched && responsesArray.at(i).invalid) {
+        <div class="text-danger mt-1">
+          @if (responsesArray.at(i).errors?.['required']) {
+          <small>Response is required.</small>
+          } @if (responsesArray.at(i).errors?.['minlength']) {
+          <small>Response must be at least 2 characters.</small>
+          }
+        </div>
+      }
+
+      }
+    </div>
+    }
+    <button type="submit" class="submit-btn px-4 py-2 rounded-2">Submit</button>
+    } @if ('answers' in feedback) { @for (a of feedback.answers; track a) {
+    <div class="question mb-4">
+      <p>{{ a.question }}</p>
+      <p class="fw-bold">
+        @if (a.type === 'RATING') {
+          Rating: {{ a.answer }}
+        } @else {
+          Answer: {{ a.answer }}
+        }
+      </p>
+    </div>
+    } }
+  </form>
+</div>
+
+}
