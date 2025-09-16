@@ -12,10 +12,10 @@ import { FormResponse } from '../../models/response.model';
   providedIn: 'root',
 })
 export class Student {
-  token: string;
+  constructor(private http: HttpClient, private cookieService: CookieService) {}
 
-  constructor(private http: HttpClient, private cookieService: CookieService) {
-    this.token = this.cookieService.get('studentToken');
+  private get token(): string {
+    return this.cookieService.get('studentToken');
   }
 
   getAllPendingForms(): Observable<Feedback[]> {
