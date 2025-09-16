@@ -15,7 +15,7 @@ export class Student {
   token: string;
 
   constructor(private http: HttpClient, private cookieService: CookieService) {
-    this.token = this.cookieService.get('token');
+    this.token = this.cookieService.get('studentToken');
   }
 
   getAllPendingForms(): Observable<Feedback[]> {

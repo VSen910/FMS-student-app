@@ -22,18 +22,18 @@ export class Auth {
   }
 
   validateToken(): Observable<boolean> {
-    const token = this.cookieService.get('token');
+    const token = this.cookieService.get('studentToken');
     return this.http.get<boolean>(`${environment.apiUrl}/api/auth/validate`, { headers: { Authorization: `Bearer ${token}` } });
   }
 
   logout() {
-    this.cookieService.delete('token');
+    this.cookieService.delete('studentToken');
     this.cookieService.delete('fullName');
     console.log('User logged out, cookies cleared');
   }
 
   changePassword(passwords: { oldPassword: string; newPassword: string }): Observable<{ message: string, status: string }> {
-    const token = this.cookieService.get('token');
+    const token = this.cookieService.get('studentToken');
     return this.http.post<{ message: string, status: string }>(`${environment.apiUrl}/api/auth/change-password`, passwords, {
       headers: { Authorization: `Bearer ${token}` }
     });
